@@ -53,7 +53,13 @@ void pizzaCalc() {
     const double total = 245 * numPizza / (1 + hydro);
 
     // Execute calculation for correct style
-    double semolina, flour, water, yeast, salt, malt, oil;
+    double semolina;
+    double flour;
+    double water;
+    double yeast;
+    double salt;
+    double malt;
+    double oil;
 
     while (!done) {
         // Neapolitan
@@ -108,7 +114,7 @@ void pizzaCalc() {
     }
 
     // Calculate cost of ingredients
-    const double cost = (flour * ppgFlour) + (semolina * ppgSemolina) + (yeast * ppgYeast) +
+    double cost = (flour * ppgFlour) + (semolina * ppgSemolina) + (yeast * ppgYeast) +
                        (salt * ppgSalt) + (malt * ppgMalt) + (oil * ppgOil);
 
     // Print ingredients
