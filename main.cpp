@@ -4,6 +4,8 @@
 #include "neapolitan.h"
 #include "total.h"
 #include "flammkuchen.h"
+#include "pizzaInput.h"
+#include "validateInput.h"
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -18,73 +20,21 @@ void pizzaCalc() {
     const double ppgMalt = 0.54 / 28;
     const double ppgOil = 0.25 / 28;
 
-    // Number of pizzas, level of hydration, and style
-    std::string numPizza_str, hydro_str, style, size;
-    
-    std::cout << "How many pizzas?" << std::endl << "    >";
-    std::cin >> numPizza_str;
+    std::string numPizza_str;
+    std::string hydro_str;
+    std::string style;
+    std::string size;
 
-    std::cout << "Hydration level?" << std::endl << "    >";
-    std::cin >> hydro_str;
+    // Get user input for number of pizzas, hydration level, style, and size from the user
+    getPizzaInput(numPizza_str, hydro_str, style, size);
 
-    std::cout << "1.Neapolitan, 2. Sicilian, 3. New York, or 4. Flammkuchen?" << std::endl << "    >";
-    std::cin >> style;
+    int sizePizza = validateSizePizza(size);
 
-    std::cout << "1. Small (20cm), 2. Medium (30cm), or 3. Large (40cm)?" << std::endl << "    >";
-    std::cin >> size;
+    style = validateStyle(style);
 
+    double numPizza = validateNumPizza(numPizza_str);
 
-    // Validate size of pizza
-    int sizePizza = -1;
-    while (sizePizza == -1){
-        if (size == "small" || size == "Small" || size == "S" || size == "s" || size == "1") {
-        sizePizza = 1;
-    } else if (size == "medium" || size == "Medium" || size == "M" || size == "m" || size == "2") {
-        sizePizza = 2;
-    } else if (size == "large" || size == "Large" || size == "L" || size == "l" || size == "3") {
-        sizePizza = 3;
-    } else {
-        std::cout << "Small (20cm), Medium (30cm), or Large (40cm)?" << std::endl << "Enter a valid size!" << std::endl << "    >";
-        std::cin >> size;
-    }
-    }
-
-    // Validate style
-    if (style == "Neapolitan" || style == "neapolitan" || style == "NA" || style == "na" || style == "Na" || style == "1") {
-        style = "Neapolitan";
-    } else if (style == "Sicilian" || style == "sicilian" || style == "S" || style == "s" || style == "2") {
-        style = "Sicilian";
-    } else if (style == "New York" || style == "new york" || style == "Ny" || style == "ny" || style == "NY" || style == "3") {
-        style = "New York";
-    } else if (style == "Flammkuchen" || style == "flammkuchen" || style == "F" || style == "f" || style == "4") {
-        style = "Flammkuchen";
-    } else {
-        std::cout << "Invalid input!" << std::endl;
-    }
-
-    // Validate number of pizzas
-    double numPizza;
-    while (true) {
-        try {
-            numPizza = std::stod(numPizza_str);
-            break;
-        } catch (const std::invalid_argument&) {
-            std::cout << "How many pizzas?" << std::endl << "Enter a number!" << std::endl << "    >";
-            std::cin >> numPizza_str;
-        }
-    }
-
-    // Validate hydration level
-    double hydro;
-    while (true) {
-        try {
-            hydro = std::stod(hydro_str) / 100;
-            break;
-        } catch (const std::invalid_argument&) {
-            std::cout << "Hydration level?" << std::endl << "Enter a number!" << std::endl << "    >";
-            std::cin >> hydro_str;
-        }
-    }
+    double hydro = validateHydration(hydro_str);
     
     // Calculate total amount of flour needed
     // Total amount of flour needed
@@ -112,7 +62,7 @@ void pizzaCalc() {
         ingredients = flammkuchen(totalFlour, hydro);
     }
 
-    // Sum all ingredients
+    // Sum all ingredientsy
     double totalIngredients = 0;
     totalIngredients += ingredients.flour;
     totalIngredients += ingredients.semolina;
