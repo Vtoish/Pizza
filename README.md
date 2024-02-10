@@ -1,8 +1,18 @@
-Pizza Dough Calculator
+**Pizza Dough Calculator**
 
-8 inch dough ball weight ~160g
-12 inch dough ball weight ~250g
-16 inch dough ball weight ~420g
+CHOOSE STYLE:
+Neapolitan
+Sicilian
+New York
+Flammkuchen
 
-sicilian add 25%
-flammkuchen subtract 25%
+CHOOSE SIZE:
+Small  - 20cm
+Medium - 30cm
+Large  - 40cm
+
+CHOOSE:
+Hydration %
+
+CHOOSE:
+Number of Pizzas
