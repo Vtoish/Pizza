@@ -27,10 +27,10 @@ void pizzaCalc() {
     std::cout << "Hydration level?" << std::endl << "    >";
     std::cin >> hydro_str;
 
-    std::cout << "Neapolitan, Sicilian, New York, or Flammkuchen?" << std::endl << "    >";
+    std::cout << "1.Neapolitan, 2. Sicilian, 3. New York, or 4. Flammkuchen?" << std::endl << "    >";
     std::cin >> style;
 
-    std::cout << "Small (20cm), Medium (30cm), or Large (40cm)?" << std::endl << "    >";
+    std::cout << "1. Small (20cm), 2. Medium (30cm), or 3. Large (40cm)?" << std::endl << "    >";
     std::cin >> size;
 
 
@@ -103,6 +103,7 @@ void pizzaCalc() {
         ingredients = neapolitan(totalFlour, hydro);
     }
     else if (style == "Sicilian") {
+        ingredients = sicilian(totalFlour, hydro);
     }
     else if (style == "New York") {
         ingredients = newYork(totalFlour, hydro);
@@ -110,28 +111,53 @@ void pizzaCalc() {
     else if (style == "Flammkuchen") {
         ingredients = flammkuchen(totalFlour, hydro);
     }
+
+    // Sum all ingredients
+    double totalIngredients = 0;
+    totalIngredients += ingredients.flour;
+    totalIngredients += ingredients.semolina;
+    totalIngredients += ingredients.water;
+    totalIngredients += ingredients.yeast;
+    totalIngredients += ingredients.salt;
+    totalIngredients += ingredients.malt;
+    totalIngredients += ingredients.oil;
+
+    // Calculate weight of single dough ball
+    double doughBall = totalIngredients / numPizza;
     
     // Calculate cost of ingredients
     double cost = (ingredients.flour * ppgFlour) + (ingredients.semolina * ppgSemolina) + (ingredients.yeast * ppgYeast) +
                        (ingredients.salt * ppgSalt) + (ingredients.malt * ppgMalt) + (ingredients.oil * ppgOil);
 
     // Print ingredients
+    std::cout << std::setprecision(2);
     std::cout << "-------------------------" << std::endl
-              << "   Flour:    " << ingredients.flour << "g" << std::endl
-              << "   Semolina: " << ingredients.semolina << "g" << std::endl
-              << "   Water:    " << ingredients.water << "g" << std::endl
-              << "   Yeast:    " << ingredients.yeast << "g" << std::endl
-              << "   Salt:     " << ingredients.salt << "g" << std::endl
-              << "   Malt:     " << ingredients.malt << "g" << std::endl
-              << "   Oil:      " << ingredients.oil << "g" << std::endl;
+          << "   Flour:    " << std::fixed << ingredients.flour << "g" << std::endl
+          << "   Semolina: " << std::fixed << ingredients.semolina << "g" << std::endl
+          << "   Water:    " << std::fixed << ingredients.water << "g" << std::endl
+          << "   Yeast:    " << std::fixed << ingredients.yeast << "g" << std::endl
+          << "   Salt:     " << std::fixed << ingredients.salt << "g" << std::endl
+          << "   Malt:     " << std::fixed << ingredients.malt << "g" << std::endl
+          << "   Oil:      " << std::fixed << ingredients.oil << "g" << std::endl;
 
     // Print cost
     std::cout << "-------------------------" << std::endl
               << "Cost:            $" << std::fixed << std::setprecision(2) << cost << std::endl;
+
+    // Print weight of single dough ball
+    std::cout << "-------------------------" << std::endl
+              << "Weight of single dough ball: ~" << std::fixed <<  std::setprecision(0) << doughBall << "g" << std::endl;
+        
 }
 
 // create main function
 int main() {
-    pizzaCalc();
+    char runAgain;
+    do {
+        pizzaCalc();
+        std::cout << "Do you want to run the program again? (y/n): " << std::endl;
+        std::cin >> runAgain;
+    } while (runAgain == 'y' || runAgain == 'Y');
+    
     return 0;
 }
