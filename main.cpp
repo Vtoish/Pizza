@@ -30,10 +30,9 @@ void pizzaCalc() {
     std::cout << "Neapolitan, Sicilian, New York, or Flammkuchen?" << std::endl << "    >";
     std::cin >> style;
 
-    std::cout << "Small, Medium, or Large?" << std::endl << "    >";
+    std::cout << "Small (20cm), Medium (30cm), or Large (40cm)?" << std::endl << "    >";
     std::cin >> size;
 
-    bool done = false;
 
     // Validate size of pizza
     int sizePizza = -1;
@@ -45,7 +44,7 @@ void pizzaCalc() {
     } else if (size == "large" || size == "Large" || size == "L" || size == "l" || size == "3") {
         sizePizza = 3;
     } else {
-        std::cout << "Small, Medium, or Large?" << std::endl << "Enter a valid size!" << std::endl << "    >";
+        std::cout << "Small (20cm), Medium (30cm), or Large (40cm)?" << std::endl << "Enter a valid size!" << std::endl << "    >";
         std::cin >> size;
     }
     }
@@ -61,7 +60,6 @@ void pizzaCalc() {
         style = "Flammkuchen";
     } else {
         std::cout << "Invalid input!" << std::endl;
-        done = true;
     }
 
     // Validate number of pizzas
